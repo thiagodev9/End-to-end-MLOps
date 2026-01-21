@@ -1,0 +1,25 @@
+{
+"name": "brewery_mlops_job",
+"tasks": [
+{
+"task_key": "ingest",
+"spark_python_task": {
+"python_file": "dbfs:/FileStore/ingest.py"
+}
+},
+{
+"task_key": "preprocess",
+"depends_on": [{"task_key": "ingest"}],
+"spark_python_task": {
+"python_file": "dbfs:/FileStore/preprocess.py"
+}
+},
+{
+"task_key": "train",
+"depends_on": [{"task_key": "preprocess"}],
+"spark_python_task": {
+"python_file": "dbfs:/FileStore/train.py"
+}
+}
+]
+}
